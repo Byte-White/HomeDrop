@@ -1,0 +1,22 @@
+# Ignore node_modules directory
+node_modules/
+
+# Ignore build artifacts
+build/
+dist/
+
+# Ignore environment variables file (if used)
+.env
+
+# Ignore editor specific files
+.vscode/
+.idea/
+
+# Ignore log files
+*.log
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore user-specific files
+*.swp
