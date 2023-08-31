@@ -1,0 +1,51 @@
+.HomeDrop {
+  text-align:left
+}
+
+
+
+.HomeDrop-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.HomeDrop-link {
+  color: #61dafb;
+}
+
+.WelcomeTo-header {
+  color:red;
+  opacity: 0;
+  animation: text_load 3s ease-in;
+  animation-fill-mode: forwards;  
+}
+.WelcomeTo-text {
+  opacity: 0;
+  animation: text_load 3s ease;
+  animation-delay: 3s;
+  animation-fill-mode: forwards;  
+}
+.WelcomeTo-link {
+  color: #61dafb;
+  opacity: 0;
+  animation: text_load 3s ease;
+  animation-delay: 6s;
+  animation-fill-mode: forwards;  
+}
+
+@keyframes text_load{
+  0%
+  {
+    opacity: 0;
+  }
+  100%
+  {
+    opacity: 1;
+  }
+}
