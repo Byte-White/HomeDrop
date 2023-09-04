@@ -4,7 +4,10 @@ const multer = require('multer');
 const path = require('path'); // Import the 'path' module
 const fs = require('fs');
 const app = express();
+const qrcode = require('qrcode-terminal');
+
 const PORT = process.env.PORT || 5000; // Use the port you prefer
+
 
 let settings;
 //read settings.json
@@ -14,6 +17,11 @@ fs.readFile('settings.json', 'utf8', (err, data) => {
     return;
   }
   settings = JSON.parse(data);
+  // Validate settings here
+  if (!settings || !settings.file_settings || !settings.file_settings.maxfilesize || !settings.file_settings.maxfiles) {
+    console.error('Invalid settings in settings.json');
+    return;
+  }
 
   // Configure multer for handling file uploads
   const storage = multer.diskStorage({
@@ -25,7 +33,11 @@ fs.readFile('settings.json', 'utf8', (err, data) => {
 
   const upload = multer({
     storage,
-    limits: { fileSize: settings.file_settings.maxfilesize * 1024 * 1024 }
+    limits: { 
+      fileSize: settings.file_settings.maxfilesize * 1024 * 1024,
+      files: settings.file_settings.maxfiles
+    }
+    
   });
 
   // Middleware to parse JSON and handle CORS (if needed)
@@ -40,15 +52,15 @@ fs.readFile('settings.json', 'utf8', (err, data) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
   });
 
-  app.post('/HomeDrop/', upload.single('fileInput'), (req, res) => {
-    // req.file contains the uploaded file details
-    if (!req.file) {
+  app.post('/HomeDrop/', upload.array('fileInput', settings.file_settings.maxfiles), (req, res) => {
+    // req.file contains the uploaded file(s) details
+    if (!req.files || req.files.length === 0) {
       return res.status(400).json({ error: 'No file uploaded.' });
     }
 
     // Here, you can handle the uploaded file, e.g., move it to a different location, save its details to a database, etc.
 
-    return res.status(200).json({ message: 'File uploaded successfully.' });
+    return res.status(200).json({ message: 'File(s) uploaded successfully.' });
   });
 
   
@@ -73,5 +85,15 @@ const serverIPAddress = getLocalIPAddress();
   // Start the server
   app.listen(PORT,serverIPAddress, () => {
     console.log(`Server(${serverIPAddress}) is running on port ${PORT}`);
+    if(settings.server.showqrcode && serverIPAddress != null)
+    {
+      const data = `http://${serverIPAddress}:${PORT}`; // Change this URL as needed
+
+      // Generate and display the QR code in the console
+      qrcode.generate(data, { small: true }, (qrCode) => {
+        console.log(data);
+        console.log(qrCode);
+      });
+    }
   });
 });

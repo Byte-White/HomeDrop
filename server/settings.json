@@ -1,5 +1,9 @@
 {
     "file_settings": {
-      "maxfilesize": 15
+      "maxfilesize": 25,
+      "maxfiles": 50
+    },
+    "server":{
+      "showqrcode": true
     }
 }
