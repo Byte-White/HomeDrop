@@ -21,4 +21,4 @@ dist/
 # Ignore user-specific files
 *.swp
 
-server/upload/
+server/uploads/

@@ -1,6 +1,6 @@
 {
     "file_settings": {
-      "maxfilesize": 25,
+      "maxfilesize": 1024,
       "maxfiles": 50
     },
     "server":{

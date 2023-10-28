@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>File Download</title>
+  </head>
+  <body>
+    <h1>Available Files for Download</h1>
+    <ul>
+      <% files.forEach(function(file) { %>
+        <li><a href="/download/<%= file %>" download><%= file %></a></li>
+      <% }); %>
+    </ul>
+  </body>
+</html>

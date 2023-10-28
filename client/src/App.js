@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import NotFound from './NotFound';
 import HomeDrop from './HomeDrop';
+import Download from './Download';
 import Welcome from './Welcome';
 
 function App() {
@@ -14,6 +15,9 @@ function App() {
             </Route>
             <Route path="/homedrop">
               <HomeDrop/>
+            </Route>
+            <Route path="/download">
+              <Download/>
             </Route>
             <Route path="*">
               <NotFound/>

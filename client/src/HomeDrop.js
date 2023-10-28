@@ -12,6 +12,8 @@ function HomeDrop() {
             <input type="file" id="fileInput" name="fileInput" multiple></input>
             <button type="submit">Upload</button>
             </form>
+            
+            <a className="HomeDrop-link" href='/Download'>Download Files From Server</a>
         </header>
         </div>
     );
